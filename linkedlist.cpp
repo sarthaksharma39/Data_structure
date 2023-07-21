@@ -57,6 +57,34 @@ Node *insertatend(Node *head,int x){
     return head;
 }
 
+//Delete head of the node 
+Node *deletehead(Node *head){
+    if(head==NULL){
+        return NULL;
+    }
+    Node *temp=head->next;
+    delete head;
+    return temp;
+}
+
+//delete last node of the linked list
+Node *deletelastnode(Node *head){
+    if(head==NULL){
+        return NULL;
+    }
+    if(head->next ==NULL){
+        delete head;
+        return NULL;
+    }
+    Node *curr = head;
+    while(curr->next->next!=NULL){
+        curr=curr->next;
+    }
+    curr->next=NULL;
+    return head;
+
+}
+
 
 int main(){
     Node *head= new Node(6);
@@ -69,6 +97,12 @@ int main(){
     printlist(head);
 
     insertatend(head,50);
+    printlist(head);
+
+    head= deletehead(head);
+    printlist(head);
+
+    deletelastnode(head);
     printlist(head);
     
     return 0;
