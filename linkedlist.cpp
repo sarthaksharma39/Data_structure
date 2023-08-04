@@ -57,6 +57,30 @@ Node *insertatend(Node *head,int x){
     return head;
 }
 
+//insert at a given position of the linked list
+Node *insertPOS(Node * head,int pos,int data){
+    Node *temp= new Node(data);
+    if(head==NULL){
+        return temp;
+    }
+    if(pos==1){
+        temp->next=head;
+        return temp;
+    }
+    Node *curr= head;
+    
+    for(int i=0;i<pos-2 && curr->next!=NULL;i++){
+        curr=curr->next;
+    }
+    if(curr==NULL){
+        return head;
+    }
+    temp->next=curr->next;
+    curr->next=temp;
+    return head;
+}
+
+
 //Delete head of the node 
 Node *deletehead(Node *head){
     if(head==NULL){
@@ -85,10 +109,27 @@ Node *deletelastnode(Node *head){
 
 }
 
+//Enter a number to sorted linked list
+Node *sortedinsert(Node *head,int x){
+    Node *temp= new Node(x);
+    if(head==NULL) return temp;
+    if(x<head->data){
+        temp->next=head;
+        return temp;
+    }
+    Node *curr= head;
+    while(curr->next!=NULL && curr->next->data<x){
+        curr=curr->next;
+    }
+    temp->next=curr->next;
+    curr->next=temp;
+    return head;
+}
+
 
 int main(){
-    Node *head= new Node(6);
-    Node *temp= new Node(8);
+    Node *head= new Node(9);
+    Node *temp= new Node(13);
     head->next=temp;
     printlist(head);
     cout<<"Element at position :"<< searchll(head,6)<<endl;
@@ -104,6 +145,17 @@ int main(){
 
     deletelastnode(head);
     printlist(head);
+
     
+    insertPOS(head,2,10);
+    printlist(head);
+    insertPOS(head,3,12);
+    printlist(head);
+    insertPOS(head,5,15);
+    printlist(head);
+    head=insertPOS(head,1,7);
+    printlist(head); //till now i manually sorted the linked list
+
+    head= sortedinsert(head,11);//error not working
     return 0;
 }
